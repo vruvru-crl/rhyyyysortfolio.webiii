@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhyzah Antone | Web Developer & UI Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0c0207;
+            --bg-card: rgba(28, 9, 19, 0.65);
+            --bg-card-hover: rgba(45, 14, 30, 0.85);
+            --border-glow: rgba(255, 42, 133, 0.25);
+            --border-glow-active: rgba(255, 0, 127, 0.8);
+            --pink-primary: #ff007f;
+            --pink-accent: #ff2a85;
+            --pink-soft: #ff85c0;
+            --pink-light: #ffd0e5;
+            --text-main: #fff0f6;
+            --text-muted: #d6a7bc;
+            --glass-blur: blur(20px);
+            --shadow-pink: 0 0 35px rgba(255, 0, 127, 0.35);
+        }
+
+        .light-mode {
+            --bg-deep: #fff2f7;
+            --bg-card: rgba(255, 255, 255, 0.75);
+            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            --border-glow: rgba(255, 51, 119, 0.3);
+            --border-glow-active: rgba(255, 0, 127, 0.9);
+            --pink-primary: #e6006c;
+            --pink-accent: #ff2a85;
+            --pink-soft: #c43b78;
+            --pink-light: #521832;
+            --text-main: #2b0816;
+            --text-muted: #6e334c;
+            --glass-blur: blur(16px);
+            --shadow-pink: 0 10px 30px rgba(230, 0, 108, 0.2);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease;
+        }
+
+        .font-heading {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Ambient Aura Dynamic Canvas */
+        #aura-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: var(--border-glow-active);
+            box-shadow: var(--shadow-pink);
+            transform: translateY(-4px);
+        }
+
+        /* Glowing Text & Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, var(--pink-soft) 40%, var(--pink-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-pink-text {
+            text-shadow: 0 0 15px rgba(255, 0, 127, 0.6), 0 0 30px rgba(255, 42, 133, 0.4);
+        }
+
+        /* Glowing Avatar Frame */
+        .avatar-glow-ring {
+            position: relative;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--pink-primary), #ff85c0, #99004d, var(--pink-accent));
+            background-size: 300% 300%;
+            animation: gradientRotate 6s ease infinite;
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes gradientRotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Vector Elements Animation */
+        .floating-element {
+            animation: floatBob 6s ease-in-out infinite;
+        }
+
+        .floating-element-reverse {
+            animation: floatBobReverse 7s ease-in-out infinite;
+        }
+
+        @keyframes floatBob {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(8deg); }
+        }
+
+        @keyframes floatBobReverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(18px) rotate(-8deg); }
+        }
+
+        /* Custom Neon Button */
+        .btn-neon {
+            position: relative;
+            background: linear-gradient(135deg, var(--pink-primary), var(--pink-accent));
+            color: #ffffff;
+            font-weight: 700;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        .btn-neon:hover {
+            box-shadow: 0 0 35px rgba(255, 0, 127, 0.9), 0 0 10px #ffffff;
+            transform: scale(1.03);
+        }
+
+        /* Glass Outline Button */
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glow);
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass:hover {
+            border-color: var(--pink-primary);
+            background: rgba(255, 0, 127, 0.15);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Circular Progress Rings */
+        .progress-ring-circle {
+            transition: stroke-dashoffset 1.2s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* Filter Tab Active Glow */
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--pink-primary), var(--pink-accent));
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+            border-color: transparent;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink-primary);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--pink-primary);
+        }
+
+        /* Modal Blur Backing */
+        .modal-backdrop {
+            background: rgba(12, 2, 7, 0.8);
+            backdrop-filter: blur(15px);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen selection:bg-pink-500 selection:text-white">
+
+    <canvas id="aura-canvas"></canvas>
+
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        <!-- Icon 1: Code Brackets -->
+        <div class="absolute top-[18%] left-[6%] floating-element opacity-30 text-pink-400">
+            <svg class="w-12 h-12 filter drop-shadow-[0_0_12px_rgba(255,0,127,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+        </div>
+        <!-- Icon 2: Figma / Design Pen -->
+        <div class="absolute top-[28%] right-[8%] floating-element-reverse opacity-35 text-pink-300">
+            <svg class="w-14 h-14 filter drop-shadow-[0_0_15px_rgba(255,0,127,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+            </svg>
+        </div>
+        <!-- Icon 3: Sparkle Stars -->
+        <div class="absolute top-[62%] left-[4%] floating-element opacity-30 text-pink-400">
+            <svg class="w-10 h-10 filter drop-shadow-[0_0_10px_rgba(255,0,127,0.8)]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2z"/>
+            </svg>
+        </div>
+        <!-- Icon 4: Terminal Window -->
+        <div class="absolute top-[72%] right-[6%] floating-element-reverse opacity-30 text-pink-300">
+            <svg class="w-12 h-12 filter drop-shadow-[0_0_12px_rgba(255,0,127,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+        </div>
+        <!-- Icon 5: Diamond Luxury Gem -->
+        <div class="absolute top-[45%] right-[3%] floating-element opacity-25 text-pink-200">
+            <svg class="w-10 h-10 filter drop-shadow-[0_0_10px_rgba(255,0,127,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 9l10 13 10-13-10-7zm0 3.8L18.6 9 12 17.6 5.4 9 12 5.8z"/>
+            </svg>
+        </div>
+    </div>
+
+    <header class="fixed top-0 left-0 w-full z-50 px-4 sm:px-8 py-4">
+        <nav class="max-w-6xl mx-auto glass-panel rounded-full px-6 py-3 flex items-center justify-between">
+            <a href="#home" class="flex items-center gap-2 group">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-600 to-pink-400 flex items-center justify-center font-extrabold text-white shadow-[0_0_15px_rgba(255,0,127,0.8)] group-hover:scale-110 transition-transform">
+                    RA
+                </div>
+                <span class="font-heading font-bold text-lg tracking-wide gradient-text">Rhyzah Antone</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <ul class="hidden md:flex items-center gap-8 font-medium text-sm tracking-wide">
+                <li><a href="#home" class="hover:text-pink-400 transition-colors">Home</a></li>
+                <li><a href="#about" class="hover:text-pink-400 transition-colors">About</a></li>
+                <li><a href="#skills" class="hover:text-pink-400 transition-colors">Skills</a></li>
+                <li><a href="#projects" class="hover:text-pink-400 transition-colors">Projects</a></li>
+                <li><a href="#contact" class="hover:text-pink-400 transition-colors">Contact</a></li>
+            </ul>
+
+            <div class="flex items-center gap-3">
+                <!-- Light / Dark Mode Toggle -->
+                <button id="theme-toggle-btn" class="p-2.5 rounded-full btn-glass text-pink-300 hover:text-white" title="Toggle Theme">
+                    <svg id="theme-icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg id="theme-icon-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+
+                <!-- Hire Me / Quick Contact -->
+                <a href="#contact" class="hidden sm:inline-block px-5 py-2 rounded-full btn-neon text-xs tracking-wider uppercase">
+                    Get In Touch
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="relative z-10 min-h-screen flex items-center justify-center pt-28 pb-16 px-4">
+        <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+            
+            <!-- Glowing Avatar Circle with Floating Tech SVGs -->
+            <div class="relative mb-8 group">
+                <div class="avatar-glow-ring">
+                    <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-white/30 relative">
+                        <img src="rai.jpg" alt="Rhyzah Antone" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                </div>
+
+                <!-- Floating Satellite SVG Badges around photo -->
+                <div class="absolute -top-2 -right-2 bg-pink-950/80 border border-pink-500/50 p-2.5 rounded-full shadow-[0_0_15px_rgba(255,0,127,0.7)] floating-element">
+                    <svg class="w-5 h-5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                </div>
+                <div class="absolute -bottom-2 -left-2 bg-pink-950/80 border border-pink-500/50 p-2.5 rounded-full shadow-[0_0_15px_rgba(255,0,127,0.7)] floating-element-reverse">
+                    <svg class="w-5 h-5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                </div>
+            </div>
+
+            <!-- Glowing Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-xs font-semibold tracking-wider text-pink-300 mb-6 uppercase border-pink-500/40">
+                <span class="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+                IT Student • Front-End Developer • UI/UX Designer
+            </div>
+
+            <!-- Dynamic Typing Heading -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold font-heading tracking-tight mb-6 leading-tight">
+                Crafting Aesthetic <br class="hidden sm:block">
+                <span id="typing-heading" class="gradient-text glow-pink-text"></span>
+                <span class="animate-pulse text-pink-500">|</span>
+            </h1>
+
+            <p class="max-w-2xl text-base sm:text-lg text-[var(--text-muted)] font-normal mb-10 leading-relaxed">
+                Hi, I'm <strong class="text-pink-400 font-semibold">Rhyzah Antone</strong>. I design & develop modern, pixel-perfect, and ultra-smooth digital experiences. Passionate about bringing creative concepts into functional web applications.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+                <a href="#projects" class="btn-neon px-8 py-3.5 rounded-full text-sm uppercase tracking-wider font-bold flex items-center gap-2">
+                    <span>View Projects</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+                <a href="#contact" class="btn-glass px-8 py-3.5 rounded-full text-sm font-semibold tracking-wider uppercase">
+                    Contact Me
+                </a>
+            </div>
+
+            <!-- Quick Interactive Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
+                <div class="glass-panel p-5 rounded-2xl text-center">
+                    <h3 class="text-3xl font-extrabold font-heading text-pink-400 glow-pink-text counter" data-target="10">0</h3>
+                    <p class="text-xs uppercase tracking-wider text-[var(--text-muted)] mt-1">Projects Built</p>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl text-center">
+                    <h3 class="text-3xl font-extrabold font-heading text-pink-400 glow-pink-text counter" data-target="100">0</h3>
+                    <p class="text-xs uppercase tracking-wider text-[var(--text-muted)] mt-1">% Passion & Dedication</p>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl text-center">
+                    <h3 class="text-3xl font-extrabold font-heading text-pink-400 glow-pink-text counter" data-target="3">0</h3>
+                    <p class="text-xs uppercase tracking-wider text-[var(--text-muted)] mt-1">Academic Awards</p>
+                </div>
+                <div class="glass-panel p-5 rounded-2xl text-center">
+                    <h3 class="text-3xl font-extrabold font-heading text-pink-400 glow-pink-text counter" data-target="100">0</h3>
+                    <p class="text-xs uppercase tracking-wider text-[var(--text-muted)] mt-1">% Responsive UI</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about" class="relative z-10 py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold font-heading gradient-text glow-pink-text mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-pink-600 to-pink-300 mx-auto rounded-full shadow-[0_0_12px_rgba(255,0,127,0.8)]"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                <!-- Bio Glass Card -->
+                <div class="md:col-span-7 glass-panel p-8 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-3 rounded-2xl bg-pink-500/10 border border-pink-500/30 text-pink-400">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold font-heading">Creative Developer & Student</h3>
+                                <p class="text-xs text-[var(--text-muted)]">BS Information Technology</p>
+                            </div>
+                        </div>
+
+                        <p class="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed mb-6">
+                            I am a driven Information Technology student with a strong passion for front-end engineering and UI/UX design. I transform creative visions into interactive, responsive, and visually stunning web experiences.
+                        </p>
+                        <p class="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed mb-6">
+                            From my early high school programming web projects to advanced academic information portals, I thrive on writing elegant code and exploring cutting-edge web technologies.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 pt-4 border-t border-pink-500/20">
+                        <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-pink-500/10 text-pink-300 border border-pink-500/30">User Experience</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-pink-500/10 text-pink-300 border border-pink-500/30">Frontend Architecture</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-pink-500/10 text-pink-300 border border-pink-500/30">Responsive Systems</span>
+                    </div>
+                </div>
+
+                <!-- Education & Milestones Card -->
+                <div class="md:col-span-5 glass-panel p-8 rounded-3xl flex flex-col justify-between">
+                    <h3 class="text-xl font-bold font-heading mb-6 flex items-center gap-3">
+                        <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></h3
+                        Academic Journey
+                    </h3>
+
+                    <div class="space-y-6 relative border-l-2 border-pink-500/30 pl-6">
+                        <!-- Item 1 -->
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-pink-500 shadow-[0_0_10px_rgba(255,0,127,1)]"></span>
+                            <h4 class="font-bold text-sm">Bachelor of Science in Information Technology</h4>
+                            <p class="text-xs text-pink-400 font-medium">College Student • Present</p>
+                            <p class="text-xs text-[var(--text-muted)] mt-1">Specializing in modern web applications, database systems, and interactive software design.</p>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-pink-400/60"></span>
+                            <h4 class="font-bold text-sm">ICT Strand Graduate</h4>
+                            <p class="text-xs text-pink-400 font-medium">Senior High School</p>
+                            <p class="text-xs text-[var(--text-muted)] mt-1">Created early web applications including e-commerce storefront prototypes and interactive coffee shop designs.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <a href="#contact" class="btn-glass w-full py-3 rounded-xl text-center font-bold text-xs uppercase tracking-wider block">
+                            Inquire For Collaboration
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="relative z-10 py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold font-heading gradient-text glow-pink-text mb-4">Skills & Tools</h2>
+                <p class="text-sm text-[var(--text-muted)] max-w-xl mx-auto">Core technologies and design tools I use to build seamless web experiences.</p>
+            </div>
+
+            <!-- Skill Circles Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                
+                <!-- Skill 1: HTML5 -->
+                <div class="glass-panel p-6 rounded-3xl text-center flex flex-col items-center group">
+                    <div class="relative w-28 h-28 mb-4">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle class="text-pink-950/40" stroke-width="8" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50"/>
+                            <circle class="progress-ring-circle text-pink-500" stroke-width="8" stroke-linecap="round" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50" stroke-dasharray="238.76" stroke-dashoffset="35"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center font-extrabold font-heading text-xl text-pink-300">
+                            85%
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-base mb-1 group-hover:text-pink-400 transition-colors">HTML5 & Semantics</h3>
+                    <p class="text-xs text-[var(--text-muted)]">Structure & Accessibility</p>
+                </div>
+
+                <!-- Skill 2: CSS3 & Tailwind -->
+                <div class="glass-panel p-6 rounded-3xl text-center flex flex-col items-center group">
+                    <div class="relative w-28 h-28 mb-4">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle class="text-pink-950/40" stroke-width="8" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50"/>
+                            <circle class="progress-ring-circle text-pink-500" stroke-width="8" stroke-linecap="round" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50" stroke-dasharray="238.76" stroke-dashoffset="47"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center font-extrabold font-heading text-xl text-pink-300">
+                            80%
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-base mb-1 group-hover:text-pink-400 transition-colors">CSS3 / Tailwind</h3>
+                    <p class="text-xs text-[var(--text-muted)]">Styling & Glassmorphism</p>
+                </div>
+
+                <!-- Skill 3: JavaScript -->
+                <div class="glass-panel p-6 rounded-3xl text-center flex flex-col items-center group">
+                    <div class="relative w-28 h-28 mb-4">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle class="text-pink-950/40" stroke-width="8" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50"/>
+                            <circle class="progress-ring-circle text-pink-500" stroke-width="8" stroke-linecap="round" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50" stroke-dasharray="238.76" stroke-dashoffset="71"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center font-extrabold font-heading text-xl text-pink-300">
+                            70%
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-base mb-1 group-hover:text-pink-400 transition-colors">JavaScript ES6+</h3>
+                    <p class="text-xs text-[var(--text-muted)]">Interactivity & DOM</p>
+                </div>
+
+                <!-- Skill 4: Figma -->
+                <div class="glass-panel p-6 rounded-3xl text-center flex flex-col items-center group">
+                    <div class="relative w-28 h-28 mb-4">
+                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                            <circle class="text-pink-950/40" stroke-width="8" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50"/>
+                            <circle class="progress-ring-circle text-pink-500" stroke-width="8" stroke-linecap="round" stroke="currentColor" fill="transparent" r="38" cx="50" cy="50" stroke-dasharray="238.76" stroke-dashoffset="35"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center font-extrabold font-heading text-xl text-pink-300">
+                            85%
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-base mb-1 group-hover:text-pink-400 transition-colors">Figma UI/UX</h3>
+                    <p class="text-xs text-[var(--text-muted)]">Wireframing & Prototypes</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="relative z-10 py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-5xl font-extrabold font-heading gradient-text glow-pink-text mb-4">Featured Projects</h2>
+                <p class="text-sm text-[var(--text-muted)] max-w-xl mx-auto">Explore my web development creations, academic projects, and UI designs.</p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex justify-center items-center gap-3 mb-12 flex-wrap">
+                <button class="tab-btn active px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider border border-pink-500/40 transition-all" data-filter="all">All Projects</button>
+                <button class="tab-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider btn-glass transition-all" data-filter="shs">SHS Projects</button>
+                <button class="tab-btn px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider btn-glass transition-all" data-filter="web">Web Apps</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1: Coffee Shop -->
+                <div class="project-card glass-panel rounded-3xl overflow-hidden group flex flex-col justify-between" data-category="shs">
+                    <div>
+                        <div class="relative overflow-hidden h-52">
+                            <img src="1.jpg" alt="Coffee Shop Web App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-deep)] via-transparent to-transparent opacity-80"></div>
+                            <span class="absolute top-4 right-4 bg-pink-900/80 backdrop-blur-md text-pink-300 border border-pink-500/40 text-[10px] uppercase font-bold px-3 py-1 rounded-full">
+                                SHS Milestone
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold font-heading mb-2 text-pink-200 group-hover:text-pink-400 transition-colors">Aesthetic Coffee Shop</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
+                                My debut web application created during Senior High School. Features an interactive order menu, customer cart preview, and custom aesthetic branding.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button class="view-details-btn btn-neon w-full py-3 rounded-2xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                                data-title="Aesthetic Coffee Shop Website"
+                                data-cat="SHS E-Commerce Concept"
+                                data-desc="Created as a showcase web application during Senior High School ICT strand. It implements dynamic menu browsing, order totaling, and a charming coffee culture aesthetic designed to entice visitors."
+                                data-tech="HTML5, CSS3, JavaScript, UI Design"
+                                data-img="1.jpg">
+                            <span>Explore Details</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: Entertainment Website -->
+                <div class="project-card glass-panel rounded-3xl overflow-hidden group flex flex-col justify-between" data-category="web">
+                    <div>
+                        <div class="relative overflow-hidden h-52">
+                            <img src="2.jpg" alt="Entertainment Website" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-deep)] via-transparent to-transparent opacity-80"></div>
+                            <span class="absolute top-4 right-4 bg-pink-900/80 backdrop-blur-md text-pink-300 border border-pink-500/40 text-[10px] uppercase font-bold px-3 py-1 rounded-full">
+                                Web Portal
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold font-heading mb-2 text-pink-200 group-hover:text-pink-400 transition-colors">Entertainment Hub</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
+                                An interactive entertainment and portfolio portal designed to facilitate creative collaborations, feature contact options, and highlight media showcases.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button class="view-details-btn btn-neon w-full py-3 rounded-2xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                                data-title="Entertainment & Collab Hub"
+                                data-cat="Interactive Web Portal"
+                                data-desc="This platform was engineered for creative partners wishing to collaborate on digital production and design. Includes interactive contact tools, portfolio showcases, and responsive layouts."
+                                data-tech="HTML5, CSS Glassmorphism, JS Dynamic Interactivity"
+                                data-img="2.jpg">
+                            <span>Explore Details</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: LMS Portal -->
+                <div class="project-card glass-panel rounded-3xl overflow-hidden group flex flex-col justify-between" data-category="web">
+                    <div>
+                        <div class="relative overflow-hidden h-52">
+                            <img src="3.jpg" alt="Learning Management System" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-deep)] via-transparent to-transparent opacity-80"></div>
+                            <span class="absolute top-4 right-4 bg-pink-900/80 backdrop-blur-md text-pink-300 border border-pink-500/40 text-[10px] uppercase font-bold px-3 py-1 rounded-full">
+                                Academic System
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold font-heading mb-2 text-pink-200 group-hover:text-pink-400 transition-colors">Smart LMS Portal</h3>
+                            <p class="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
+                                A multi-user Learning Management System designed for academic institutions. Handles user roles, assignment portals, and course dashboards.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button class="view-details-btn btn-neon w-full py-3 rounded-2xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                                data-title="Smart Learning Management System"
+                                data-cat="Multi-User Web App"
+                                data-desc="A full academic platform tailored for students and instructors. Features user authentication screens, course modules, grade monitoring UI, and multi-input forms."
+                                data-tech="HTML5, CSS Grid/Flexbox, JavaScript Modules, Database UI"
+                                data-img="3.jpg">
+                            <span>Explore Details</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="relative z-10 py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-5xl font-extrabold font-heading gradient-text glow-pink-text mb-4">Get In Touch</h2>
+                <p class="text-sm text-[var(--text-muted)] max-w-lg mx-auto">Have a project idea or want to collaborate? Send me a message below!</p>
+            </div>
+
+            <div class="glass-panel p-8 sm:p-12 rounded-3xl relative overflow-hidden">
+                <form id="portfolio-contact-form" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Input 1: Name -->
+                        <div>
+                            <label for="form-name" class="block text-xs font-bold uppercase tracking-wider text-pink-300 mb-2">Your Name</label>
+                            <input type="text" id="form-name" required placeholder="e.g. Maria Santos" class="w-full px-4 py-3.5 rounded-xl bg-pink-950/20 border border-pink-500/30 text-white placeholder-pink-300/30 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all">
+                        </div>
+                        <!-- Input 2: Email -->
+                        <div>
+                            <label for="form-email" class="block text-xs font-bold uppercase tracking-wider text-pink-300 mb-2">Your Email</label>
+                            <input type="email" id="form-email" required placeholder="maria@example.com" class="w-full px-4 py-3.5 rounded-xl bg-pink-950/20 border border-pink-500/30 text-white placeholder-pink-300/30 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Input 3: Message -->
+                    <div>
+                        <label for="form-msg" class="block text-xs font-bold uppercase tracking-wider text-pink-300 mb-2">Your Message</label>
+                        <textarea id="form-msg" rows="5" required placeholder="Let's build something awesome together..." class="w-full px-4 py-3.5 rounded-xl bg-pink-950/20 border border-pink-500/30 text-white placeholder-pink-300/30 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-neon w-full py-4 rounded-xl text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+                        <span>Send Message</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                    </button>
+                </form>
+
+                <!-- Feedback Toast -->
+                <div id="form-toast" class="hidden mt-6 p-4 rounded-xl text-center font-semibold text-sm transition-all"></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="project-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl relative border-pink-500/50 animate-scaleUp">
+            <button id="modal-close" class="absolute top-4 right-4 p-2 rounded-full bg-pink-950/80 text-pink-300 hover:text-white border border-pink-500/40 z-10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <div class="h-60 relative overflow-hidden">
+                <img id="modal-img" src="" alt="Project Preview" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent"></div>
+            </div>
+
+            <div class="p-8">
+                <span id="modal-cat" class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/40 text-[10px] font-bold uppercase mb-2">Category</span>
+                <h3 id="modal-title" class="text-2xl font-bold font-heading mb-3 text-pink-200">Project Title</h3>
+                <p id="modal-desc" class="text-sm text-[var(--text-muted)] leading-relaxed mb-6">Description...</p>
+                
+                <div class="mb-6">
+                    <p class="text-xs font-bold uppercase tracking-wider text-pink-300 mb-2">Technologies Used:</p>
+                    <p id="modal-tech" class="text-xs text-[var(--text-main)] font-mono">HTML, CSS, JS</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <button id="modal-ack-btn" class="btn-neon w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider">Close Preview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 z-40 p-3.5 rounded-full btn-neon hidden shadow-2xl transition-all" title="Back to top">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+    </button>
+
+    <footer class="relative z-10 py-8 border-t border-pink-500/20 text-center">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
+            <p>&copy; 2026 <strong class="text-pink-400 font-semibold">Rhyzah Antone</strong>. All rights reserved.</p>
+            <p class="flex items-center gap-1">
+                Handcrafted with 
+                <svg class="w-4 h-4 text-pink-500 fill-pink-500 inline" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                & Web Tech
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* 1. Dynamic Typing Heading */
+            const words = ["Web Apps.", "UI/UX Interfaces.", "Digital Solutions."];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const typingHeading = document.getElementById('typing-heading');
+
+            function typeEffect() {
+                const currentWord = words[wordIndex];
+                if (isDeleting) {
+                    typingHeading.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingHeading.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let speed = isDeleting ? 60 : 120;
+
+                if (!isDeleting && charIndex === currentWord.length) {
+                    speed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    speed = 500;
+                }
+
+                setTimeout(typeEffect, speed);
+            }
+            typeEffect();
+
+            /* 2. Ambient Aura Canvas Particles */
+            const canvas = document.getElementById('aura-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.radius = Math.random() * 3 + 1;
+                    this.alpha = Math.random() * 0.5 + 0.1;
+                    this.speedY = Math.random() * -0.6 - 0.2;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    if (this.y < 0) this.reset();
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 0, 127, ${this.alpha})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 45; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateAura() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateAura);
+            }
+            animateAura();
+
+            /* 3. Stats Counter Animation */
+            const counters = document.querySelectorAll('.counter');
+            let hasAnimatedCounters = false;
+
+            window.addEventListener('scroll', () => {
+                const heroSection = document.getElementById('home');
+                const position = heroSection.getBoundingClientRect();
+                
+                if (position.top < window.innerHeight && !hasAnimatedCounters) {
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        let count = 0;
+                        const increment = target / 40;
+
+                        const updateCount = () => {
+                            count += increment;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count);
+                                setTimeout(updateCount, 30);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                    });
+                    hasAnimatedCounters = true;
+                }
+            });
+
+            /* 4. Theme Toggle Switch */
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            const iconSun = document.getElementById('theme-icon-sun');
+            const iconMoon = document.getElementById('theme-icon-moon');
+
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const isLight = document.body.classList.contains('light-mode');
+                
+                if (isLight) {
+                    iconSun.classList.remove('hidden');
+                    iconMoon.classList.add('hidden');
+                } else {
+                    iconSun.classList.add('hidden');
+                    iconMoon.classList.remove('hidden');
+                }
+            });
+
+            /* 5. Project Filter Tabs */
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            /* 6. Project Modal Logic */
+            const modal = document.getElementById('project-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalCat = document.getElementById('modal-cat');
+            const modalDesc = document.getElementById('modal-desc');
+            const modalTech = document.getElementById('modal-tech');
+            const modalImg = document.getElementById('modal-img');
+            const modalClose = document.getElementById('modal-close');
+            const modalAckBtn = document.getElementById('modal-ack-btn');
+
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modalTitle.textContent = btn.getAttribute('data-title');
+                    modalCat.textContent = btn.getAttribute('data-cat');
+                    modalDesc.textContent = btn.getAttribute('data-desc');
+                    modalTech.textContent = btn.getAttribute('data-tech');
+                    modalImg.src = btn.getAttribute('data-img');
+                    modal.classList.remove('hidden');
+                });
+            });
+
+            const closeModal = () => modal.classList.add('hidden');
+            modalClose.addEventListener('click', closeModal);
+            modalAckBtn.addEventListener('click', closeModal);
+
+            /* 7. Contact Form Handling */
+            const contactForm = document.getElementById('portfolio-contact-form');
+            const formToast = document.getElementById('form-toast');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                formToast.className = "p-4 rounded-xl text-center font-semibold text-sm bg-pink-500/20 border border-pink-500 text-pink-200 block";
+                formToast.textContent = "Thank you! Your message has been sent to Rhyzah Antone. 💕";
+
+                contactForm.reset();
+
+                setTimeout(() => {
+                    formToast.classList.add('hidden');
+                }, 5000);
+            });
+
+            /* 8. Back-to-Top Scroll */
+            const backToTopBtn = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('hidden');
+                } else {
+                    backToTopBtn.classList.add('hidden');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>     
